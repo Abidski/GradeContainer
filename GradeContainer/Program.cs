@@ -1,4 +1,9 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using GradeContainer.Data;
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<GradeContainerContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("GradeContainerContext") ?? throw new InvalidOperationException("Connection string 'GradeContainerContext' not found.")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
